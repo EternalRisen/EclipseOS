@@ -89,7 +89,7 @@ _start:
 	preserved and the call is well defined.
 	*/
 
-	call kernel_main
+	call _Z11kernel_mainv
 
 	/*
 	If the system has nothing more to do, put the computer into an
