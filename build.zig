@@ -29,6 +29,7 @@ pub fn build(b: *std.build.Builder) void {
 
     bin.setTarget(target);
     bin.setBuildMode(mode);
+    bin.setOutputDir("isodir/boot");
 
     // The files to compile
     bin.addAssemblyFile("boot/boot.s");
@@ -36,4 +37,16 @@ pub fn build(b: *std.build.Builder) void {
     bin.setLinkerScriptPath("linker/linker.ld");
 
     bin.install();
+
+    const iso_cmd = b.addSystemCommand(&[_][]const u8{ "grub-mkrescue", "-o", "dist/myos.iso", "isodir" });
+    iso_cmd.step.dependOn(b.getInstallStep());
+
+    const iso_step = b.step("iso", "Build an iso");
+    iso_step.dependOn(&iso_cmd.step);
+
+    const qemu_cmd = b.addSystemCommand(&[_][]const u8{ "qemu-system-x86_64", "-cdrom", "dist/myos.iso" });
+    qemu_cmd.step.dependOn(&iso_cmd.step);
+
+    const qemu_step = b.step("qemu", "Run with qemu");
+    qemu_step.dependOn(&qemu_cmd.step);
 }
