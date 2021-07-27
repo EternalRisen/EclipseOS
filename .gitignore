@@ -1,2 +1,4 @@
 *.bin
 dist/
+zig-cache
+zig-out
