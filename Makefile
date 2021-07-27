@@ -1,5 +1,3 @@
-# look, I know this is a very jank makefile, but it works on my system and will get back to it later, what matters most is that it work on my pc.
-
 build:
 	@zig build
 	@mv zig-out/bin/myos.bin isodir/boot/myos.bin
