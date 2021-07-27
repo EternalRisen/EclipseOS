@@ -1,6 +1,6 @@
 extern "C"
 
-#include "tty.hpp"
+#include <tty.hpp>
 
 using namespace term;
 
