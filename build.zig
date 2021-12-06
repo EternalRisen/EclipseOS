@@ -31,6 +31,9 @@ pub fn build(b: *std.build.Builder) void {
     bin.setBuildMode(mode);
     bin.setOutputDir("isodir/boot");
 
+    // add custom includes
+    bin.addIncludeDir("kernel/include");
+
     // The files to compile
     bin.addAssemblyFile("boot/boot.s");
     bin.addCSourceFile("kernel/kernel.cpp", &cflags);
