@@ -1,3 +1,4 @@
+const builtin = @import("builtin");
 const std = @import("std");
 
 const CrossTarget = std.zig.CrossTarget;
@@ -37,7 +38,7 @@ pub fn build(b: *std.build.Builder) void {
     // The files to compile
     bin.addAssemblyFile("boot/boot.s");
     bin.addCSourceFile("kernel/kernel.cpp", &cflags);
-    bin.setLinkerScriptPath("linker/linker.ld");
+    bin.setLinkerScriptPath(.{ .path = "linker/linker.ld" });
 
     bin.install();
 
